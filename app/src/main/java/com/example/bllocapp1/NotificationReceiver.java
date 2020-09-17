@@ -9,7 +9,8 @@ import android.util.Log;
 public class NotificationReceiver extends NotificationListenerService {
 
     private String TAG = this.getClass().getSimpleName();
-    static MyListener myListener;
+    //static MyListener myListener;
+    String myText;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -21,6 +22,7 @@ public class NotificationReceiver extends NotificationListenerService {
         Log.i(TAG, "********** onNotificationPosted");
         Log.i(TAG, "ID :" + sbn.getId() + " \t " + sbn.getNotification().tickerText + " \t " + sbn.getPackageName());
         myListener.setValue( "Post: " + sbn.getPackageName());
+
     }
 
     @Override
