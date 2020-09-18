@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
     private static final String ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
 
-
     private TextView txtView;
     private NotificationReceiver nReceiver;
 
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog enableNotificationListenerAlertDialog;
 
-        // Checks if the notification listener is on, if not then he user
+        // Checks if the notification listener is on, if not then the user
         // is prompted to do turn it on
         if(!checkPermission()){
             enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
@@ -47,8 +46,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Set the text in the app to the text from the notification
-    private void changeText(String message) {
+     void changeText(String message) {
         txtView.setText(message);
+
+        // Sending the data using intent
+         Intent sendIntent = new Intent();
+         sendIntent.setAction(Intent.ACTION_SEND);
+         sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+         sendIntent.setType("text/plain");
+
+         Intent shareIntent = Intent.createChooser(sendIntent, null);
+         startActivity(shareIntent);
     }
 
     // This method checks if the notification listener is enabled
@@ -78,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }*/
 
-    //
+    // Creates the alert for user to enable the notification
     private AlertDialog buildNotificationServiceAlertDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle("notification_listener_service");
@@ -94,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         // If you choose to not enable the notification listener
                         // the app. will not work as expected
+                        System.out.println("App wont work properly");
                     }
                 });
         return(alertDialogBuilder.create());

@@ -10,7 +10,8 @@ public class NotificationReceiver extends NotificationListenerService {
 
     private String TAG = this.getClass().getSimpleName();
     //static MyListener myListener;
-    String myText;
+    //String myText;
+    MainActivity ma = new MainActivity();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -21,7 +22,8 @@ public class NotificationReceiver extends NotificationListenerService {
     public void onNotificationPosted(StatusBarNotification sbn){
         Log.i(TAG, "********** onNotificationPosted");
         Log.i(TAG, "ID :" + sbn.getId() + " \t " + sbn.getNotification().tickerText + " \t " + sbn.getPackageName());
-        myListener.setValue( "Post: " + sbn.getPackageName());
+        //myListener.setValue( "Post: " + sbn.getPackageName());
+        ma.changeText(sbn.toString());
 
     }
 
